@@ -5,6 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
 @Slf4j
 
 public class CyclicBarrierEaample {
@@ -30,7 +32,12 @@ public class CyclicBarrierEaample {
     public  static  void test(int num) throws  Exception{
         log.info("{} is ready",num);
         Thread.sleep(1000);
-        barrier.await();
+//        barrier.await();
+        try{
+            barrier.await(2000, TimeUnit.MILLISECONDS); //等待2秒后不再等待
+        }catch (Exception e){
+            log.error(e.getMessage());
+        }
         log.info("{} is coubtinue",num);
 
     }
